@@ -2,9 +2,9 @@
 
 Shooter arcade futurista **endless** creado con HTML5 Canvas, CSS y JavaScript puro.
 
-## Nuevo hangar principal
+## Hangar principal
 
-Antes de iniciar una partida ahora puedes configurar:
+Antes de iniciar una partida puedes configurar:
 
 - **Modo:** Solo Run o Local Co-op para 2 jugadores.
 - **Piloto del jugador 1 y jugador 2.**
