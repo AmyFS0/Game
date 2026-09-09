@@ -4,93 +4,88 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050510" />
-  <title>NEON RIFT — Endless Multidimensional Shooter</title>
+  <title>NEON RIFT — Endless Galactic Shooter</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="app">
-    <canvas id="game" aria-label="NEON RIFT endless shooter"></canvas>
+<div id="app">
+  <canvas id="game"></canvas>
+  <div class="scanlines"></div>
 
-    <header class="topbar">
-      <div class="brand">
-        <span class="brand-mark"></span>
-        <div>
-          <strong>NEON RIFT</strong>
-          <small id="dimensionName">DIMENSION // NEON CITY</small>
-        </div>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark"></span><div><strong>NEON RIFT</strong><small>ENDLESS MULTIVERSE</small></div></div>
+    <div class="top-actions"><button id="musicToggle" class="icon-btn">♫ MUSIC ON</button><button id="pauseBtn" class="icon-btn hidden">Ⅱ PAUSE</button></div>
+  </header>
+
+  <main id="menu" class="menu-screen">
+    <section class="menu-copy">
+      <div class="eyebrow">◈ MULTIVERSE HANGAR ONLINE</div>
+      <h1>NEON<br><em>RIFT</em></h1>
+      <p>Configura tu escuadrón, elige una dimensión y entra a una carrera infinita contra criaturas alienígenas.</p>
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="1">SOLO RUN</button>
+        <button class="mode-btn" data-mode="2">LOCAL CO-OP</button>
       </div>
-      <div class="status-line"><span class="live-dot"></span> RIFT DRIVE ONLINE</div>
-    </header>
-
-    <main id="menu" class="screen">
-      <section class="hero-card">
-        <div class="eyebrow"><span></span> ENDLESS DIMENSION RUN <span></span></div>
-        <h1>NEON<br><em>RIFT</em></h1>
-        <p>Fly forever to the right, cross unstable dimensional portals and survive increasingly dangerous alien swarms.</p>
-        <div class="start-buttons">
-          <button id="soloBtn" class="primary-btn"><span>▶</span> SOLO RUN<small>1 PLAYER // NOVA-01</small></button>
-          <button id="coopBtn" class="primary-btn secondary"><span>◆</span> LOCAL CO-OP<small>2 PLAYERS // SAME KEYBOARD</small></button>
-        </div>
-        <div class="menu-stats">
-          <div><b>∞</b><span>DISTANCE</span></div>
-          <div><b>∞</b><span>LEVELS</span></div>
-          <div><b>05</b><span>DIMENSIONS</span></div>
-          <div><b>02</b><span>PLAYERS</span></div>
-        </div>
-      </section>
-
-      <aside class="mission-card glass">
-        <div class="portal-preview"><div class="portal-ring r1"></div><div class="portal-ring r2"></div><div class="portal-core"></div></div>
-        <small>MISSION PROTOCOL</small>
-        <h2>KEEP MOVING</h2>
-        <p>Every portal raises the level. Alien species mutate, move faster and hit harder as the run continues.</p>
-        <div class="control-grid">
-          <div><b>PLAYER 1</b><span>WASD · F SHOOT</span></div>
-          <div><b>PLAYER 2</b><span>ARROWS · ENTER SHOOT</span></div>
-        </div>
-      </aside>
-    </main>
-
-    <section id="hud" class="hud hidden" aria-live="polite">
-      <div class="hud-top glass">
-        <div><small>DISTANCE</small><b id="distanceText">0000 m</b></div>
-        <div><small>LEVEL</small><b id="levelText">01</b></div>
-        <div><small>DIMENSION</small><b id="dimensionText">NEON CITY</b></div>
-        <div><small>SCORE</small><b id="scoreText">000000</b></div>
-        <div><small>ALIENS</small><b id="killsText">000</b></div>
-      </div>
-
-      <div id="p1Card" class="player-card p1 glass">
-        <div class="player-title"><span>01</span><div><b>NOVA-01</b><small>CYAN WING</small></div></div>
-        <div class="hp-row"><span>HULL</span><div class="hp-track"><i id="p1Hp"></i></div><b id="p1HpText">100</b></div>
-      </div>
-
-      <div id="p2Card" class="player-card p2 glass hidden">
-        <div class="player-title"><span>02</span><div><b>VEX-02</b><small>MAGENTA WING</small></div></div>
-        <div class="hp-row"><span>HULL</span><div class="hp-track"><i id="p2Hp"></i></div><b id="p2HpText">100</b></div>
-      </div>
-
-      <div class="objective glass"><span class="live-dot"></span><b id="objectiveText">SURVIVE // NEXT RIFT APPROACHING</b><small id="portalDistance">PORTAL IN 1400 m</small></div>
+      <button id="launchBtn" class="launch-btn"><span>▶</span><b>LAUNCH INTO THE RIFT</b><small id="launchSummary">NOVA · NEON CITY · NORMAL</small></button>
     </section>
 
-    <section id="endScreen" class="screen end-screen hidden">
-      <div class="end-card glass">
-        <small>RIFT SIGNAL LOST</small>
-        <h2>SHIP<br>DESTROYED</h2>
-        <p>The alien swarm overwhelmed the expedition. Your dimensional record remains.</p>
-        <div class="end-stats">
-          <div><span>DISTANCE</span><b id="finalDistance">0 m</b></div>
-          <div><span>LEVEL</span><b id="finalLevel">1</b></div>
-          <div><span>ALIENS</span><b id="finalKills">0</b></div>
+    <section class="hangar glass">
+      <div class="tabs">
+        <button class="tab active" data-tab="pilots">PILOTS</button>
+        <button class="tab" data-tab="mission">LEVEL</button>
+        <button class="tab" data-tab="audio">AUDIO</button>
+        <button class="tab" data-tab="controls">CONTROLS</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-pilots">
+        <div class="section-label">PLAYER 1 · SELECT PILOT</div>
+        <div class="character-grid" id="p1Characters"></div>
+        <div id="p2Wrap" class="hidden">
+          <div class="section-label second">PLAYER 2 · SELECT PILOT</div>
+          <div class="character-grid" id="p2Characters"></div>
         </div>
-        <button id="restartBtn" class="primary-btn center-btn">RESTART RUN</button>
+      </div>
+
+      <div class="tab-panel" id="tab-mission">
+        <div class="setting-group"><label>STARTING DIMENSION</label><div id="dimensionGrid" class="dimension-grid"></div></div>
+        <div class="setting-row">
+          <label>STARTING LEVEL <b id="levelValue">1</b></label>
+          <input id="levelRange" type="range" min="1" max="10" value="1" />
+        </div>
+        <div class="setting-group"><label>DIFFICULTY</label><div class="difficulty-row"><button data-difficulty="cadet">CADET</button><button class="active" data-difficulty="normal">NORMAL</button><button data-difficulty="rift">RIFT</button></div></div>
+        <div class="mission-note"><b>∞ ENDLESS MODE</b><span>Cada portal aumenta el nivel, cambia la dimensión y fortalece a los aliens.</span></div>
+      </div>
+
+      <div class="tab-panel" id="tab-audio">
+        <div class="audio-hero"><div class="equalizer"><i></i><i></i><i></i><i></i><i></i><i></i></div><div><b>GALACTIC SYNTH ENGINE</b><span>Música procedural generada dentro del navegador.</span></div></div>
+        <div class="setting-row"><label>MUSIC VOLUME <b id="musicValue">65%</b></label><input id="musicVolume" type="range" min="0" max="100" value="65" /></div>
+        <div class="setting-row"><label>SFX VOLUME <b id="sfxValue">75%</b></label><input id="sfxVolume" type="range" min="0" max="100" value="75" /></div>
+      </div>
+
+      <div class="tab-panel" id="tab-controls">
+        <div class="controls-grid">
+          <div><span class="player-dot p1"></span><b>PLAYER 1</b><p><kbd>WASD</kbd> Move</p><p><kbd>F</kbd> Fire</p><p><kbd>G</kbd> Pulse</p></div>
+          <div><span class="player-dot p2"></span><b>PLAYER 2</b><p><kbd>ARROWS</kbd> Move</p><p><kbd>ENTER</kbd> Fire</p><p><kbd>SHIFT</kbd> Pulse</p></div>
+        </div>
+        <p class="hint">Tip: destruye aliens para cargar el pulso. Úsalo cuando la pantalla se llene de enemigos.</p>
       </div>
     </section>
+  </main>
 
-    <div id="toast" class="toast">RIFT DRIVE ONLINE</div>
-    <div id="dimensionFlash" class="dimension-flash"></div>
-    <div class="scanlines"></div>
-  </div>
-  <script src="game.js"></script>
+  <section id="hud" class="hud hidden">
+    <div class="hud-left glass"><div class="hud-title"><span id="dimensionName">NEON CITY</span><small id="dimensionLevel">LEVEL 01</small></div><div class="progress"><i id="portalProgress"></i></div><small class="next-rift">NEXT RIFT PORTAL</small></div>
+    <div class="hud-center glass"><span>DISTANCE <b id="distance">0000m</b></span><span>SCORE <b id="score">000000</b></span><span>ALIENS <b id="kills">0</b></span></div>
+    <div class="ship-hud p1hud glass"><div><b id="p1Name">NOVA</b><small>PLAYER 1</small></div><div class="hp"><i id="p1hp"></i></div><span id="p1hpText">100</span></div>
+    <div id="p2Hud" class="ship-hud p2hud glass hidden"><div><b id="p2Name">BYTE</b><small>PLAYER 2</small></div><div class="hp"><i id="p2hp"></i></div><span id="p2hpText">100</span></div>
+    <div id="bossBar" class="boss-bar glass hidden"><small>RIFT BEHEMOTH</small><div><i id="bossHp"></i></div></div>
+  </section>
+
+  <section id="pauseScreen" class="overlay hidden"><div class="overlay-card glass"><small>RIFT TEMPORARILY STABILIZED</small><h2>PAUSED</h2><button id="resumeBtn" class="launch-btn small">RESUME</button><button id="hangarBtn" class="secondary-btn">RETURN TO HANGAR</button></div></section>
+
+  <section id="gameOver" class="overlay hidden"><div class="overlay-card glass"><small>EXPEDITION ENDED</small><h2>SHIP<br>DESTROYED</h2><p id="finalLine">The Rift claimed your squad.</p><div class="stats"><div><span>DISTANCE</span><b id="finalDistance">0m</b></div><div><span>SCORE</span><b id="finalScore">0</b></div><div><span>LEVEL</span><b id="finalLevel">1</b></div></div><button id="retryBtn" class="launch-btn small">RE-ENTER RIFT</button><button id="hangarBtn2" class="secondary-btn">HANGAR</button></div></section>
+
+  <div id="toast" class="toast">RIFT ONLINE</div>
+</div>
+<script src="game.js"></script>
 </body>
 </html>
