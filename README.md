@@ -25,7 +25,7 @@ Antes de iniciar una partida puedes configurar:
 
 El juego incluye un **Galactic Synth Engine** hecho con Web Audio API. La banda sonora se genera de forma procedural en el navegador con drones espaciales, arpegios y sintetizadores, por lo que no necesita archivos de música externos.
 
-Los navegadores bloquean el audio automático antes de la primera interacción. La música se activa al pulsar **LAUNCH INTO THE RIFT** o el botón **MUSIC ON**.
+Por las restricciones de autoplay de los navegadores, el audio comienza después de una interacción del usuario. La música se activa al pulsar **LAUNCH INTO THE RIFT** o el botón **MUSIC ON**.
 
 ## Endless Multiverse
 
