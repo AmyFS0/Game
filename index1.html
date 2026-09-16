@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070713" />
+  <title>NEON RIFT — Arcade Shooter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+  <canvas id="game" aria-label="NEON RIFT game canvas"></canvas>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <div><strong>NEON RIFT</strong><small id="dimensionLabel">ANILLO NEÓN</small></div>
+    </div>
+    <nav>
+      <button data-panel="characters">CHARACTER</button>
+      <button data-panel="loadout">LOADOUT</button>
+      <button data-panel="missions">LEVELS</button>
+      <button data-panel="help">HELP</button>
+      <button data-panel="story">STORY</button>
+      <button id="musicBtn">♪ MUSIC</button>
+    </nav>
+  </header>
+
+  <section id="hud" class="hud hidden" aria-live="polite">
+    <div class="hud-left glass">
+      <div class="player-line">
+        <span class="avatar">N</span>
+        <div><b>NOVA</b><small>Rift Runner</small></div>
+        <span id="levelBadge">LV.01</span>
+      </div>
+      <div id="livesHud" class="lives-row">♥♥♥</div>
+      <div class="meter-row"><span>HP</span><div class="meter"><i id="healthBar"></i></div><b id="healthText">100</b></div>
+      <div class="meter-row energy"><span>EN</span><div class="meter"><i id="energyBar"></i></div><b id="energyText">100</b></div>
+      <div id="orbStatus" class="orb-status">NO BULLET SHIELD</div>
+      <div id="fxStatus" class="fx-status">–</div>
+    </div>
+
+    <div class="hud-center">
+      <div class="mission-pill glass"><span class="pulse-dot"></span><b id="objective">CLEAR THE WAVE</b><small id="waveText">WORLD I · LEVEL 01/10 · WAVE 1/2</small></div>
+    </div>
+
+    <div class="hud-right glass">
+      <div class="score-label">SCORE <b id="score">000000</b></div>
+      <div class="core-count"><span class="core-icon">◆</span> KILLS <b id="killsHud">0</b></div>
+    </div>
+
+    <div class="weapon-card glass">
+      <div><small id="weaponRarity">RARE</small><b id="weaponName">PULSE BLASTER</b></div>
+      <span id="weaponSlot">01</span>
+    </div>
+
+    <div class="ability-card glass">
+      <div class="ability"><kbd>Q</kbd><span><b>SHIELD</b><small id="shieldStatus">READY</small></span></div>
+      <div class="ability"><kbd>E</kbd><span><b>OVERCHARGE</b><small id="overchargeStatus">READY</small></span></div>
+      <div class="ability"><kbd>SPACE</kbd><span><b>DASH</b><small id="dashStatus">READY</small></span></div>
+    </div>
+
+    <div class="crosshair" id="crosshair"><b></b><i></i><i></i><i></i><i></i><span></span></div>
+  </section>
+
+  <main id="menu" class="screen active">
+    <div class="hero-card">
+      <div class="eyebrow"><span></span> RIFT SIGNAL DETECTED <span></span></div>
+      <h1>NEON<br><em>RIFT</em></h1>
+      <p>Dos mundos rotos en diez dimensiones. Nova, la última corredora, debe sellar la Grieta antes de que el Vacío devore todo.</p>
+      <button id="playBtn" class="primary-btn"><span>▶</span> START MISSION <small>NEON RING // SECTOR 7</small></button>
+      <div class="menu-stats">
+        <div><b>02</b><span>WORLDS</span></div>
+        <div><b>10</b><span>LEVELS</span></div>
+        <div><b>03</b><span>WEAPONS</span></div>
+        <div><b>06</b><span>SURVIVAL ORBS</span></div>
+      </div>
+      <div class="pickup-legend">
+        <span><i class="orb yellow"></i><b>PROTECTION</b> blocks enemy bullets</span>
+        <span><i class="orb blue"></i><b>HEALTH</b> restores life</span>
+        <span><i class="orb green"></i><b>ENERGY</b> refills energy</span>
+        <span><i class="orb pink"></i><b>BOOST</b> more damage</span>
+        <span><i class="orb cyan"></i><b>SPEED</b> move faster</span>
+        <span><i class="orb lime"></i><b>TIME</b> slow the rift</span>
+      </div>
+    </div>
+
+    <aside class="pilot-card glass">
+      <div class="pilot-visual">
+        <div class="orbit o1"></div><div class="orbit o2"></div>
+        <div class="nova-portrait"><span class="visor"></span><span class="helmet"></span><span class="body-core"></span></div>
+      </div>
+      <div class="pilot-info"><small>SELECTED RUNNER</small><h2>NOVA</h2><p>Dimensional explorer · 3 lives</p></div>
+    </aside>
+
+    <div class="controls-strip glass">
+      <span><kbd>WASD</kbd> MOVE</span><span><kbd>MOUSE</kbd> AIM</span><span><kbd>CLICK</kbd> FIRE</span><span><kbd>1 2 3</kbd> WEAPONS</span><span><kbd>SPACE</kbd> DASH</span><span><kbd>Q / E</kbd> ABILITIES</span><span><kbd>M</kbd> MUSIC</span>
+    </div>
+  </main>
+
+  <section id="brief" class="screen brief-screen hidden">
+    <div class="brief-card glass">
+      <small id="briefTag">WORLD I // ANILLO NEÓN</small>
+      <h2 id="briefTitle">LEVEL 01<br><em>NEON CITY</em></h2>
+      <p id="briefStory"></p>
+      <div class="brief-meta">
+        <div><span>WAVES</span><b id="briefWaves">2</b></div>
+        <div><span>DIFFICULTY</span><b id="briefDiff">01</b></div>
+        <div><span>TARGET</span><b id="briefTarget">CLEAR WAVES</b></div>
+      </div>
+      <button id="briefBtn" class="primary-btn">▶ DEPLOY</button>
+    </div>
+  </section>
+
+  <section id="panel" class="panel glass hidden">
+    <button id="closePanel" class="close-btn">×</button>
+    <small id="panelEyebrow">RIFT TERMINAL</small>
+    <h2 id="panelTitle">LOADOUT</h2>
+    <div id="panelContent"></div>
+  </section>
+
+  <section id="endScreen" class="screen end-screen hidden">
+    <div class="end-card glass">
+      <small id="endEyebrow">MISSION COMPLETE</small>
+      <h2 id="endTitle">RIFT<br>STABILIZED</h2>
+      <p id="endText">You survived the dimensional campaign.</p>
+      <div class="end-stats">
+        <div><span>SCORE</span><b id="finalScore">0</b></div>
+        <div><span>LEVEL</span><b id="finalLevel">1/10</b></div>
+        <div><span>KILLS</span><b id="finalKills">0</b></div>
+      </div>
+      <button id="restartBtn" class="primary-btn">PLAY AGAIN</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast">SYSTEM ONLINE</div>
+  <div class="scanlines"></div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
